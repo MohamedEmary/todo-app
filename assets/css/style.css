@@ -55,6 +55,18 @@ ul.dropdown-menu li {
   opacity: 0.75 !important;
 }
 
+.finished-tasks .dropdown-menu {
+  position: absolute !important;
+  inset: auto !important;
+  transform: translateX(-50%) !important;
+  left: 50% !important;
+  margin: 0 !important;
+}
+
+.finished-tasks .dropdown-menu.show {
+  transform: translateX(-50%) !important;
+}
+
 .tasks button:not(:disabled) {
   cursor: auto !important;
 }
