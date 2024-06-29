@@ -108,6 +108,23 @@ async function displayCurrent() {
   addIconFunctionality();
 }
 
+async function deleteTodo(id) {
+  console.log(id);
+  let response = await fetch(`https://todos.routemisr.com/api/v1/todos`, {
+    method: "DELETE",
+    body: JSON.stringify({
+      todoId: id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  response = await response.json();
+  if (response.message === "success") {
+    displayCurrent();
+  }
+}
+
 async function addIconFunctionality() {
   document.querySelectorAll(".fa-trash-can").forEach((element) => {
     element.addEventListener("click", function (e) {
@@ -130,3 +147,16 @@ async function addIconFunctionality() {
 
 getUserData();
 displayCurrent();
+
+// async function main() {
+//   getUserData();
+//   await displayCurrent();
+// }
+
+// main();
+
+// {
+//   "_id": "6680612f60a208ee1fdc0fb3",
+//   "title": "wadwadawd",
+//   "completed": false,
+// }
