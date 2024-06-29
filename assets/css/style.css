@@ -55,6 +55,13 @@ button:hover {
   transition-duration: 0.5s;
 }
 
+.fa-plus,
+.fa-trash-can,
+.fa-square,
+.fa-square-check {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .greet {
     font-size: 35px;
