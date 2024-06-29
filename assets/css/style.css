@@ -14,12 +14,14 @@ body {
 }
 
 .finished-tasks button,
-.dropdown-menu .li {
+.dropdown-menu .li,
+.modal-footer button[data-bs-dismiss="modal"] {
   background-color: var(--main-color-dark);
 }
 
 .tasks button,
-.finised-no {
+.finised-no,
+.modal-footer button:not([data-bs-dismiss="modal"]) {
   background-color: var(--main-color-light);
 }
 
@@ -60,6 +62,13 @@ button:hover {
 .fa-square,
 .fa-square-check {
   cursor: pointer;
+}
+
+input[type="text"]:focus {
+  border-color: rgba(235, 197, 131, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset,
+    0 0 8px rgba(235, 197, 131, 0.6);
+  outline: 0 none;
 }
 
 @media screen and (max-width: 768px) {
