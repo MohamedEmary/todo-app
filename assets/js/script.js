@@ -1,5 +1,6 @@
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
+let allTodos;
 
 async function getApiKey() {
   let response = await fetch("https://todos.routemisr.com/api/v1/getApiKey");
@@ -25,7 +26,7 @@ function getUserData() {
   document.querySelector("header h3").textContent = `Hey, ${username}`;
 }
 
-function addTodo() {
+async function addTodo() {
   let todo = document.querySelector("input");
   document
     .querySelector(".submit-todo")
@@ -50,53 +51,22 @@ function addTodo() {
         alert("Please Try Again");
       }
     });
+  allTodos = await getTodos();
+  console.log(allTodos);
 }
 
-function main() {
+async function getTodos() {
+  let response = await fetch(
+    `https://todos.routemisr.com/api/v1/todos/${apiKey}`
+  );
+  response = await response.json();
+  return response.todos;
+}
+
+async function main() {
+  allTodos = await getTodos();
   getUserData();
   addTodo();
 }
 
 main();
-
-// ===================================
-
-/*
-let allTasks = {
-  ongoingTasks: { 1: "Task1", 2: "Task2", 3: "Task3", 4: "Task4", 5: "Task5" },
-  finishedTasks: {},
-};
-console.log(allTasks);
-
-let ongoingTasks = {
-  1: "Task1",
-  2: "Task2",
-  3: "Task3",
-  4: "Task4",
-  5: "Task5",
-};
-
-let finishedTasks = {
-  6: "Task6",
-  7: "Task7",
-  8: "Task8",
-  9: "Task9",
-  10: "Task10",
-}; 
-*/
-
-// ===================================
-
-/* let ongoingTasks = [];
-
-function addTask() {
-  let todo = document.querySelector("input");
-  document.querySelector(".submit-todo").addEventListener("click", function () {
-    ongoingTasks.push(todo.value);
-    console.log(ongoingTasks);
-    todo.value = "";
-  });
-}
-
-addTask();
- */
