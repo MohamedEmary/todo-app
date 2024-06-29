@@ -1,0 +1,54 @@
+:root {
+  --main-color-light: #be9856;
+  /* --main-color-light: #d7b777; */
+  --main-color-dark: #00354a;
+}
+
+body {
+  background: url(../images/bg.png) no-repeat center center / cover fixed;
+}
+
+.greet {
+  font-size: 50px;
+  color: var(--main-color-light);
+}
+
+.finished-tasks button,
+.dropdown-menu .li {
+  background-color: var(--main-color-dark);
+}
+
+.tasks button,
+.finised-no {
+  background-color: var(--main-color-light);
+}
+
+.finised-no {
+  width: 50px;
+  height: 25px;
+  line-height: 25px;
+}
+
+button:hover {
+  color: initial !important;
+}
+
+.finished-tasks .dropdown-item:hover {
+  background-color: rgb(92, 92, 92);
+}
+
+.dropdown-item:hover {
+  border-radius: 5px;
+}
+
+.list-group,
+.dropdown-menu {
+  width: calc(100% - 34px) !important;
+  transform: translateX(17px);
+}
+
+@media screen and (max-width: 768px) {
+  .greet {
+    font-size: 35px;
+  }
+}
