@@ -105,13 +105,13 @@ async function displayCurrent() {
       </li>`;
     }
   }
-  getIconId();
+  addIconFunctionality();
 }
 
-async function getIconId() {
+async function addIconFunctionality() {
   document.querySelectorAll(".fa-trash-can").forEach((element) => {
     element.addEventListener("click", function (e) {
-      console.log(this.getAttribute("data-unique-id")); // should call delete function
+      deleteTodo(this.getAttribute("data-unique-id"));
     });
   });
 
