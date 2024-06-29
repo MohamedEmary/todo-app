@@ -1,3 +1,8 @@
+// TODO Review the flow of the application again
+// 1. see if i need an async main function or not
+// 2. Show spinner when any part of the application is loading
+// 3. do u suggest any improvement for this code?
+
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
 let allTodos;
@@ -61,6 +66,14 @@ document
     }
 
     displayCurrent();
+  });
+
+// Rotate animation of the down arrow in the dropdown list
+document
+  .querySelector(".finished-tasks")
+  .addEventListener("click", function () {
+    let icon = document.querySelector(".fa-chevron-down");
+    icon.style.rotate = icon.style.rotate === "180deg" ? "0deg" : "180deg";
   });
 
 async function getTodos() {
