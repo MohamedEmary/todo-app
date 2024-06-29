@@ -2,6 +2,9 @@
 // 1. see if i need an async main function or not
 // 2. Show spinner when any part of the application is loading
 // 3. do u suggest any improvement for this code?
+// 4. Add mark Complete function
+// 5. Add delete task function
+// 6. Handle Cache
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -94,14 +97,35 @@ async function displayCurrent() {
       <li
         class="list-group-item bg-black bg-opacity-10 d-flex justify-content-between align-items-center">
         <span>
-          <i class="fa-regular fa-square me-2"></i> ${todo.title} 
+          <i data-unique-id="${todo._id}" class="fa-regular fa-square me-2"></i> ${todo.title} 
         </span>
         <span>
-          <i class="fa-regular fa-trash-can"></i>
+          <i data-unique-id="${todo._id}" class="fa-regular fa-trash-can"></i>
         </span>
       </li>`;
     }
   }
+  getIconId();
+}
+
+async function getIconId() {
+  document.querySelectorAll(".fa-trash-can").forEach((element) => {
+    element.addEventListener("click", function (e) {
+      console.log(this.getAttribute("data-unique-id")); // should call delete function
+    });
+  });
+
+  document.querySelectorAll(".fa-square").forEach((element) => {
+    element.addEventListener("click", function (e) {
+      console.log(this.getAttribute("data-unique-id")); // should call mark complete function
+    });
+  });
+
+  document.querySelectorAll(".fa-check-square").forEach((element) => {
+    element.addEventListener("click", function (e) {
+      console.log(this.getAttribute("data-unique-id")); // should call mark incomplete function
+    });
+  });
 }
 
 getUserData();
