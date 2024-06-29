@@ -2,7 +2,6 @@
 // 1. see if i need an async main function or not
 // 2. Show spinner when any part of the application is loading
 // 3. do u suggest any improvement for this code?
-// 4. Add mark Complete function
 // 5. Add delete task function
 // 6. Handle Cache
 
@@ -108,8 +107,24 @@ async function displayCurrent() {
   addIconFunctionality();
 }
 
+async function markFinished(id) {
+  let response = await fetch(`https://todos.routemisr.com/api/v1/todos`, {
+    method: "PUT",
+    body: JSON.stringify({
+      todoId: id,
+    }),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  response = await response.json();
+  console.log(response);
+  if (response.message === "success") {
+    displayCurrent();
+  }
+}
+
 async function deleteTodo(id) {
-  console.log(id);
   let response = await fetch(`https://todos.routemisr.com/api/v1/todos`, {
     method: "DELETE",
     body: JSON.stringify({
@@ -134,7 +149,7 @@ async function addIconFunctionality() {
 
   document.querySelectorAll(".fa-square").forEach((element) => {
     element.addEventListener("click", function (e) {
-      console.log(this.getAttribute("data-unique-id")); // should call mark complete function
+      markFinished(this.getAttribute("data-unique-id"));
     });
   });
 
