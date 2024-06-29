@@ -2,8 +2,8 @@
 // 1. see if i need an async main function or not
 // 2. Show spinner when any part of the application is loading
 // 3. do u suggest any improvement for this code?
-// 5. Add delete task function
-// 6. Handle Cache
+// 4. Handle Cache
+// 5. Refactor functions that look like each other and can be merged into one
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -21,7 +21,7 @@ function getUserData() {
     getApiKey();
   } else {
     allTodos = getTodos();
-    displayCurrent();
+    display();
   }
 
   if (username == null) {
@@ -55,19 +55,15 @@ document
   .querySelector(".submit-todo")
   .addEventListener("click", async function () {
     let todo = document.querySelector("input");
-
     response = await addTodo(todo.value);
-
     todo.value = "";
-
     // TODO use a better was of informing the user his todo was added
     if (response.message == "success") {
       alert("Your Todo Was Added");
     } else {
       alert("Please Try Again");
     }
-
-    displayCurrent();
+    display();
   });
 
 // Rotate animation of the down arrow in the dropdown list
@@ -86,22 +82,37 @@ async function getTodos() {
   return response.todos;
 }
 
-async function displayCurrent() {
-  let lstGroup = document.querySelector(".list-group");
+async function display() {
+  let onGoing = document.querySelector(".list-group");
+  let finished = document.querySelector(".finished-tasks ul");
   allTodos = await getTodos();
-  lstGroup.innerHTML = "";
+  onGoing.innerHTML = "";
+  finished.innerHTML = "";
   for (const todo of allTodos) {
     if (!todo.completed) {
-      lstGroup.innerHTML += `
+      onGoing.innerHTML += `
       <li
         class="list-group-item bg-black bg-opacity-10 d-flex justify-content-between align-items-center">
         <span>
-          <i data-unique-id="${todo._id}" class="fa-regular fa-square me-2"></i> ${todo.title} 
+          <i data-unique-id="${todo._id}" class="fa-regular fa-square me-2"></i> ${todo.title}
         </span>
         <span>
           <i data-unique-id="${todo._id}" class="fa-regular fa-trash-can"></i>
         </span>
       </li>`;
+    } else {
+      finished.innerHTML += `
+      <li
+        class="dropdown-item py-2 d-flex justify-content-between align-items-center px-3 rounded-1">
+        <span>
+          <i data-unique-id="${todo._id}" class="fa-regular fa-square-check me-2"></i>
+          <span class="text-decoration-line-through">${todo.title}</span>
+        </span>
+        <span>
+          <i data-unique-id="${todo._id}" class="fa-regular fa-trash-can"></i>
+        </span>
+      </li>
+      `;
     }
   }
   addIconFunctionality();
@@ -118,9 +129,8 @@ async function markFinished(id) {
     },
   });
   response = await response.json();
-  console.log(response);
   if (response.message === "success") {
-    displayCurrent();
+    display();
   }
 }
 
@@ -136,7 +146,7 @@ async function deleteTodo(id) {
   });
   response = await response.json();
   if (response.message === "success") {
-    displayCurrent();
+    display();
   }
 }
 
@@ -161,7 +171,7 @@ async function addIconFunctionality() {
 }
 
 getUserData();
-displayCurrent();
+display();
 
 // async function main() {
 //   getUserData();
