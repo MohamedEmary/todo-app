@@ -49,6 +49,12 @@ button:hover {
   transform: translateX(17px);
 }
 
+ul.dropdown-menu li {
+  background-color: #00354a9e !important;
+  color: white !important;
+  opacity: 0.75 !important;
+}
+
 .tasks button:not(:disabled) {
   cursor: auto !important;
 }
