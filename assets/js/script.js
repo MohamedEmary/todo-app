@@ -4,6 +4,7 @@
 // 3. do u suggest any improvement for this code?
 // 4. Handle Cache
 // 5. Refactor functions that look like each other and can be merged into one
+// 6. add number of finished tasks
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -68,7 +69,7 @@ document
 
 // Rotate animation of the down arrow in the dropdown list
 document
-  .querySelector(".finished-tasks")
+  .querySelector(".finished-tasks button")
   .addEventListener("click", function () {
     let icon = document.querySelector(".fa-chevron-down");
     icon.style.rotate = icon.style.rotate === "180deg" ? "0deg" : "180deg";
@@ -181,7 +182,11 @@ display();
 // main();
 
 // {
-//   "_id": "6680612f60a208ee1fdc0fb3",
-//   "title": "wadwadawd",
-//   "completed": false,
+//   "_id": "6680823360a208ee1fdc1778",
+//   "title": "a",
+//   "completed": true,
+//   "apiKey": "66806de460a208ee1fdc118e",
+//   "__v": 0,
+//   "createdAt": "2024-06-29T21:52:51.972Z",
+//   "updatedAt": "2024-06-29T21:53:20.033Z"
 // }
