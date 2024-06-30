@@ -4,7 +4,6 @@
 // 3. do u suggest any improvement for this code?
 // 4. Handle Cache
 // 5. Refactor functions that look like each other and can be merged into one
-// 6. add number of finished tasks
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -131,34 +130,29 @@ function updateFinishedNum() {
   finishedTasksNum.textContent = counter;
 }
 
-async function markFinished(id) {
-  let response = await fetch(`https://todos.routemisr.com/api/v1/todos`, {
-    method: "PUT",
-    body: JSON.stringify({
-      todoId: id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  response = await response.json();
-  if (response.message === "success") {
-    display();
+async function updateTodo(id = "", action, todoVal = "") {
+  let method;
+  let body = { todoId: id };
+  if (action === "markFinished") {
+    method = "PUT";
+  } else if (action === "delete") {
+    method = "DELETE";
+  } else {
+    throw new Error("Invalid action");
   }
-}
 
-async function deleteTodo(id) {
   let response = await fetch(`https://todos.routemisr.com/api/v1/todos`, {
-    method: "DELETE",
-    body: JSON.stringify({
-      todoId: id,
-    }),
+    method: method,
+    body: JSON.stringify(body),
     headers: {
       "Content-Type": "application/json",
     },
   });
   response = await response.json();
-  if (response.message === "success") {
+  if (action === "add") {
+    response = await response.json();
+    return response;
+  } else if (response.message === "success") {
     display();
   }
 }
@@ -166,13 +160,13 @@ async function deleteTodo(id) {
 async function addIconFunctionality() {
   document.querySelectorAll(".fa-trash-can").forEach((element) => {
     element.addEventListener("click", function (e) {
-      deleteTodo(this.getAttribute("data-unique-id"));
+      updateTodo(this.getAttribute("data-unique-id"), "delete");
     });
   });
 
   document.querySelectorAll(".fa-square").forEach((element) => {
     element.addEventListener("click", function (e) {
-      markFinished(this.getAttribute("data-unique-id"));
+      updateTodo(this.getAttribute("data-unique-id"), "markFinished");
     });
   });
 
@@ -185,20 +179,3 @@ async function addIconFunctionality() {
 
 getUserData();
 display();
-
-// async function main() {
-//   getUserData();
-//   await displayCurrent();
-// }
-
-// main();
-
-// {
-//   "_id": "6680823360a208ee1fdc1778",
-//   "title": "a",
-//   "completed": true,
-//   "apiKey": "66806de460a208ee1fdc118e",
-//   "__v": 0,
-//   "createdAt": "2024-06-29T21:52:51.972Z",
-//   "updatedAt": "2024-06-29T21:53:20.033Z"
-// }
