@@ -21,14 +21,16 @@ async function getApiKey() {
 }
 
 function getUserData() {
-  if (apiKey == null) {
+  let values = [null, "null", ""];
+
+  if (values.includes(apiKey)) {
     getApiKey();
   } else {
     allTodos = getTodos();
     display();
   }
 
-  if (username == null || username == "null") {
+  if (values.includes(username)) {
     username = prompt("Please Enter Your Name:");
     localStorage.setItem("username", `${username}`);
   } else {
