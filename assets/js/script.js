@@ -28,7 +28,7 @@ function getUserData() {
     display();
   }
 
-  if (username == null) {
+  if (username == null || username == "null") {
     username = prompt("Please Enter Your Name:");
     localStorage.setItem("username", `${username}`);
   } else {
