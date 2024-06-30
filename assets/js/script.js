@@ -7,6 +7,7 @@
 // 6. see if i need an async main function or not
 // 7. use a modal instead of prompt when taking username
 // 8. use a better was of informing the user his todo was added instead of alert
+// 9. See if the API supports mark incomplete again or not if not remove the check square icon
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
