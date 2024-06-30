@@ -1,9 +1,12 @@
-// TODO Review the flow of the application again
-// 1. see if i need an async main function or not
+// TODO
+// 1. Review the flow of the application again
 // 2. Show spinner when any part of the application is loading
 // 3. do u suggest any improvement for this code?
 // 4. Handle Cache
 // 5. Refactor functions that look like each other and can be merged into one
+// 6. see if i need an async main function or not
+// 7. use a modal instead of prompt when taking username
+// 8. use a better was of informing the user his todo was added instead of alert
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -25,7 +28,6 @@ function getUserData() {
   }
 
   if (username == null) {
-    // TODO use a modal instead of prompt
     username = prompt("Please Enter Your Name:");
     localStorage.setItem("username", `${username}`);
   } else {
@@ -50,14 +52,13 @@ async function addTodo(todoVal) {
   return response;
 }
 
-// Adding a task
+// Plus icons for adding a task
 document
   .querySelector(".submit-todo")
   .addEventListener("click", async function () {
     let todo = document.querySelector("input");
     response = await addTodo(todo.value);
     todo.value = "";
-    // TODO use a better was of informing the user his todo was added
     if (response.message == "success") {
       alert("Your Todo Was Added");
     } else {
