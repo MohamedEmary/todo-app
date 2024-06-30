@@ -61,9 +61,13 @@ document
   .addEventListener("click", async function () {
     let todo = document.querySelector("input");
     response = await addTodo(todo.value);
-    todo.value = "";
-    if (response.message == "success") {
-      alert("Your Todo Was Added");
+    console.log(response.message);
+    console.log(todo.value.trim());
+    if (todo.value.trim() !== "" && response.message === "success") {
+      todo.value = "";
+      document
+        .querySelector('button.btn-close[data-bs-dismiss="modal"]')
+        .click();
     } else {
       alert("Please Try Again");
     }
