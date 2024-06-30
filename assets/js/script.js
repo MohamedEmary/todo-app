@@ -131,7 +131,7 @@ function updateFinishedNum() {
   finishedTasksNum.textContent = counter;
 }
 
-async function updateTodo(id = "", action, todoVal = "") {
+async function updateTodo(id, action) {
   let method;
   let body = { todoId: id };
   if (action === "markFinished") {
