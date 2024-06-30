@@ -117,6 +117,18 @@ async function display() {
     }
   }
   addIconFunctionality();
+  updateFinishedNum();
+}
+
+function updateFinishedNum() {
+  let finishedTasksNum = document.querySelector(".finised-no");
+  let counter = 0;
+  for (const todo of allTodos) {
+    if (todo.completed) {
+      counter++;
+    }
+  }
+  finishedTasksNum.textContent = counter;
 }
 
 async function markFinished(id) {
