@@ -1,13 +1,10 @@
 // TODO
 // 1. Review the flow of the application again
 // 2. Show spinner when any part of the application is loading
-// 3. do u suggest any improvement for this code?
+// 3. See if the API supports mark incomplete again or not if not remove the check square icon
 // 4. Handle Cache
-// 5. Refactor functions that look like each other and can be merged into one
-// 6. see if i need an async main function or not
-// 7. use a modal instead of prompt when taking username
-// 8. use a better was of informing the user his todo was added instead of alert
-// 9. See if the API supports mark incomplete again or not if not remove the check square icon
+// 5. see if i need an async main function or not
+// 6. use a modal instead of prompt when taking username
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -30,11 +27,10 @@ function getUserData() {
     display();
   }
 
-  if (values.includes(username)) {
-    username = prompt("Please Enter Your Name:");
+  username = localStorage.getItem("username");
+  while (values.includes(username)) {
+    username = prompt("Please Enter Your Name:").trim();
     localStorage.setItem("username", `${username}`);
-  } else {
-    username = localStorage.getItem("username");
   }
 
   document.querySelector("header h3").textContent = `Hey, ${username}`;
