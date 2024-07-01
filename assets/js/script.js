@@ -25,13 +25,11 @@ function getUserData() {
     allTodos = getTodos();
     display();
   }
-
   username = localStorage.getItem("username");
   while (values.includes(username)) {
     username = prompt("Please Enter Your Name:").trim();
     localStorage.setItem("username", `${username}`);
   }
-
   document.querySelector("header h3").textContent = `Hey, ${username}`;
 }
 
@@ -50,14 +48,20 @@ async function addTodo(todoVal) {
   return response;
 }
 
+// Modal input autofocus
+const modal = document.getElementById("todoInputModal");
+const todoInput = document.getElementById("todoInput");
+modal.addEventListener("shown.bs.modal", () => {
+  todoInput.focus();
+});
+
 // Plus icons for adding a task
 document
   .querySelector(".submit-todo")
   .addEventListener("click", async function () {
-    let todo = document.querySelector("input");
-    response = await addTodo(todo.value);
-    if (todo.value.trim() !== "" && response.message === "success") {
-      todo.value = "";
+    response = await addTodo(todoInput.value);
+    if (todoInput.value.trim() !== "" && response.message === "success") {
+      todoInput.value = "";
       document
         .querySelector('button.btn-close[data-bs-dismiss="modal"]')
         .click();
