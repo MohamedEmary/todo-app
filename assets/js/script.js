@@ -1,9 +1,8 @@
 // TODO
 // 1. Review the flow of the application again
 // 2. Show spinner when any part of the application is loading
-// 3. use a modal instead of prompt when taking username
+// 3. see if i need an async main function or not
 // 4. Handle Cache
-// 5. see if i need an async main function or not
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -16,6 +15,20 @@ async function getApiKey() {
   localStorage.setItem("apiKey", apiKey);
 }
 
+const unsernameModal = new bootstrap.Modal(
+  document.getElementById("nameInputModal")
+);
+
+const usernameInput = document.getElementById("username");
+const saveBtn = document.querySelector(".save-name");
+
+saveBtn.addEventListener("click", () => {
+  username = usernameInput.value.trim();
+  localStorage.setItem("username", username);
+  document.querySelector("header h3").textContent = `Hey, ${username}`;
+  unsernameModal.hide();
+});
+
 function getUserData() {
   let values = [null, "null", ""];
 
@@ -25,12 +38,13 @@ function getUserData() {
     allTodos = getTodos();
     display();
   }
+
   username = localStorage.getItem("username");
-  while (values.includes(username)) {
-    username = prompt("Please Enter Your Name:").trim();
-    localStorage.setItem("username", `${username}`);
+  if (values.includes(username)) {
+    unsernameModal.show();
+  } else {
+    document.querySelector("header h3").textContent = `Hey, ${username}`;
   }
-  document.querySelector("header h3").textContent = `Hey, ${username}`;
 }
 
 async function addTodo(todoVal) {
