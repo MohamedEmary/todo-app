@@ -1,10 +1,9 @@
 // TODO
 // 1. Review the flow of the application again
 // 2. Show spinner when any part of the application is loading
-// 3. See if the API supports mark incomplete again or not if not remove the check square icon
+// 3. use a modal instead of prompt when taking username
 // 4. Handle Cache
 // 5. see if i need an async main function or not
-// 6. use a modal instead of prompt when taking username
 
 let username = localStorage.getItem("username");
 let apiKey = localStorage.getItem("apiKey");
@@ -57,8 +56,6 @@ document
   .addEventListener("click", async function () {
     let todo = document.querySelector("input");
     response = await addTodo(todo.value);
-    console.log(response.message);
-    console.log(todo.value.trim());
     if (todo.value.trim() !== "" && response.message === "success") {
       todo.value = "";
       document
@@ -161,6 +158,19 @@ async function updateTodo(id, action) {
   }
 }
 
+function markUnfinished(id) {
+  // This is a workaround as the API does not support marking unfinished
+  let title;
+  for (const todo of allTodos) {
+    if (todo._id === id) {
+      title = todo.title;
+      break;
+    }
+  }
+  updateTodo(id, "delete");
+  addTodo(title);
+}
+
 async function addIconFunctionality() {
   document.querySelectorAll(".fa-trash-can").forEach((element) => {
     element.addEventListener("click", function (e) {
@@ -174,9 +184,9 @@ async function addIconFunctionality() {
     });
   });
 
-  document.querySelectorAll(".fa-check-square").forEach((element) => {
+  document.querySelectorAll(".fa-square-check").forEach((element) => {
     element.addEventListener("click", function (e) {
-      console.log(this.getAttribute("data-unique-id")); // should call mark incomplete function
+      markUnfinished(this.getAttribute("data-unique-id"));
     });
   });
 }
