@@ -31,8 +31,12 @@ body {
   line-height: 25px;
 }
 
+button {
+  transition-duration: 150ms;
+}
+
 button:hover {
-  color: initial !important;
+  color: rgb(212, 225, 229) !important;
 }
 
 .finished-tasks .dropdown-item:hover {
